@@ -35,6 +35,7 @@ body {
 }
 
 .country {
+  max-height: 400px;
   background-color: #fff;
   box-shadow: 0 2rem 5rem 1rem rgba(0, 0, 0, 0.1);
   font-size: 1.8rem;
@@ -45,11 +46,6 @@ body {
 }
 
 .neighbour::before {
-  content: "Neighbour country";
-  width: 100%;
-  position: absolute;
-  top: -4rem;
-
   text-align: center;
   font-size: 1.8rem;
   font-weight: 600;
@@ -64,7 +60,7 @@ body {
 
 .country__img {
   width: 30rem;
-  height: 17rem;
+  height: 15rem;
   object-fit: cover;
   background-color: #eee;
   border-top-left-radius: 0.7rem;
@@ -129,7 +125,7 @@ strong {
 header {
   margin: auto;
   padding: 25px;
-  max-height: 200px;
+  max-height: 150px;
   text-align: center;
 }
 label {
@@ -145,4 +141,9 @@ label {
   background-size: 100px;
   background-color: inherit !important;
   text-align: left;
+}
+.op {
+  justify-content: center;
+  text-align: center;
+  opacity: 0;
 }
