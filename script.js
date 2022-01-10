@@ -23,6 +23,7 @@ const renderCountry = function (data, className = "") {
       </div>
     </article>
     `;
+  ownCountry.innerHTML = "";
   ownCountry.insertAdjacentHTML("beforeend", html);
   ownCountry.style.opacity = 1;
 };
@@ -40,10 +41,8 @@ const getCountry = function (country) {
       .catch((reason) => console.log(reason.message))
   );
 };
-getCountry("usa");
-function check() {
+function checkCountry() {
   const data = input.value;
   getCountry(data);
 }
-
-button.addEventListener("click", check);
+button.addEventListener("click", checkCountry);

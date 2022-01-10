@@ -139,3 +139,10 @@ label {
   min-height: 30px;
   font-size: 2rem;
 }
+.logo {
+  background-image: url("./img/logo.jpg");
+  background-repeat: no-repeat;
+  background-size: 100px;
+  background-color: inherit !important;
+  text-align: left;
+}
