@@ -77,6 +77,9 @@ const getCountry = function (country) {
     .then((data) => {
       renderCountry(data[0], country);
       const borders = data[0].borders;
+      if (!borders) {
+        throw new Error(`this country has neighbour countries border . `);
+      }
       return borders;
     })
     .then((data) => {
