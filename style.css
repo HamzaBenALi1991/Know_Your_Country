@@ -125,7 +125,7 @@ strong {
 header {
   margin: auto;
   padding: 25px;
-  max-height: 150px;
+  max-height: 220px;
   text-align: center;
 }
 label {
@@ -145,5 +145,7 @@ label {
 .op {
   justify-content: center;
   text-align: center;
-  opacity: 0;
+}
+.hidden {
+  display: none;
 }
