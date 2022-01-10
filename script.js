@@ -6,7 +6,16 @@ const h2 = document.body.querySelector(".op");
 const button = document.body.querySelector(".button");
 const input = document.body.querySelector(".input");
 
+const helper = function () {};
+
+const renderError = function (err) {
+  ownCountry.insertAdjacentText("beforeend", err);
+  ownCountry.style.opacity = 1;
+};
+
 const renderCountry = function (data, className = "") {
+  ownCountry.innerHTML = "";
+  borders.innerHTML = "";
   const html = `
     <article class="country ${className}">
       <img class="country__img" src="${data.flags.png}" />
@@ -27,6 +36,7 @@ const renderCountry = function (data, className = "") {
     `;
   ownCountry.insertAdjacentHTML("beforeend", html);
   ownCountry.style.opacity = 1;
+  h2.classList.remove("hidden");
 };
 const renderNeighbour = function (data, className = "") {
   const html = `
@@ -55,24 +65,36 @@ const renderNeighbour = function (data, className = "") {
 };
 
 const getCountry = function (country) {
-  fetch(`https://restcountries.com/v3.1/name/${country}`).then((response) =>
-    response
-      .json()
-      .then((data) => {
-        if (!data) return;
-        console.log(...data);
-        renderCountry(data[0], country);
-        const borders = data[0].borders;
-        if (!borders) return;
-        return borders;
-      })
-      .then((data) => {
-        data.forEach((element) => {
-          getCountryBorders(element, "neighbour");
-        });
-      })
-      .catch((reason) => console.log(reason.message))
-  );
+  fetch(`https://restcountries.com/v3.1/name/${country}`)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(
+          ` ${country} is not a valid name for a country . ${response.status}`
+        );
+      }
+      return response.json();
+    })
+    .then((data) => {
+      renderCountry(data[0], country);
+      const borders = data[0].borders;
+      return borders;
+    })
+    .then((data) => {
+      data.forEach((element) => {
+        getCountryBorders(element, "neighbour");
+      });
+    })
+    .catch((err) => {
+      console.error(err);
+      renderError(`Something went wrong 
+       , check connexion  or the spelling of the country and try again .
+       ${err.message}
+       
+       `);
+      setTimeout(() => {
+        location.reload();
+      }, 5000);
+    });
 };
 const getCountryBorders = function (country) {
   fetch(`https://restcountries.com/v3.1/alpha/${country}`).then((response) =>
@@ -80,16 +102,20 @@ const getCountryBorders = function (country) {
       .json()
       .then((data) => {
         if (!data) return;
-        console.log(...data);
         renderNeighbour(data[0], "neighbour");
 
         return data;
       })
-      .catch((reason) => console.log(reason.message))
+      .catch((err) => {
+        renderError(`Something went wrong
+       , check connexion  or the spelling of the country and try again 
+       `);
+      })
   );
 };
-function checkCountry() {
+const checkCountry = function () {
   const data = input.value;
   getCountry(data);
-}
+};
+
 button.addEventListener("click", checkCountry);
