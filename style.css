@@ -20,9 +20,7 @@ body {
 }
 
 .containerr {
-  display: flex;
-  flex-flow: column;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .countries {
@@ -148,4 +146,7 @@ label {
 }
 .hidden {
   display: none;
+}
+.s {
+  border: 2px solid rgba(0, 0, 0, 0);
 }
