@@ -5,11 +5,14 @@ const borders = document.body.querySelector(".borders");
 const h2 = document.body.querySelector(".op");
 const button = document.body.querySelector(".button");
 const input = document.body.querySelector(".input");
+const message = document.body.querySelector(".div");
 
 const helper = function () {};
 
 const renderError = function (err) {
-  ownCountry.insertAdjacentText("beforeend", err);
+  message.textContent = "";
+  message.insertAdjacentText("beforeend", err);
+  h2.style.opacity = 0;
   ownCountry.style.opacity = 1;
 };
 
@@ -78,7 +81,7 @@ const getCountry = function (country) {
       renderCountry(data[0], country);
       const borders = data[0].borders;
       if (!borders) {
-        throw new Error(`this country has neighbour countries border . `);
+        throw new Error(`This country has no  neighbour  border  countries . `);
       }
       return borders;
     })
@@ -89,14 +92,7 @@ const getCountry = function (country) {
     })
     .catch((err) => {
       console.error(err);
-      renderError(`Something went wrong 
-       , check connexion  or the spelling of the country and try again .
-       ${err.message}
-       
-       `);
-      setTimeout(() => {
-        location.reload();
-      }, 5000);
+      renderError(err.message);
     });
 };
 const getCountryBorders = function (country) {
@@ -121,4 +117,10 @@ const checkCountry = function () {
   getCountry(data);
 };
 
-button.addEventListener("click", checkCountry);
+button.addEventListener("click", function (e) {
+  e.preventDefault();
+  ownCountry.innerHTML = "";
+  borders.innerHTML = "";
+  message.textContent = "";
+  checkCountry();
+});
