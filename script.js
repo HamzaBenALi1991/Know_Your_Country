@@ -9,6 +9,7 @@ const message = document.body.querySelector(".div");
 let mapStatus = false;
 let map;
 let lat, lng;
+input.addEventListener("click", (e) => e.preventDefault());
 
 const renderError = function (err) {
   message.textContent = "";
